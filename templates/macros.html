@@ -1,0 +1,49 @@
+{% macro render_wtform(form) %} {{ form.hidden_tag() }} {% for field in form if
+field.widget.input_type != 'hidden' %} {% for error in field.errors %}
+<span class="text-danger">{{ error }}</span>
+{% endfor %} {{ field(placeholder=field.label.text, class="form-control") }} {%
+endfor %} {% endmacro %} {% macro render_users(user, users) %}
+<div class="col-sm-9">
+  <div class="row">
+    {% for user in users %}
+
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="card user-card">
+        <div class="card-inner">
+          <div class="image-wrapper">
+            <img src="{{ user.header_image_url }}" alt="" class="card-hero" />
+          </div>
+          <div class="card-contents">
+            <a href={{url_for("users_show", user_id=user.id)}} class="card-link">
+              <img
+                src="{{ user.image_url }}"
+                alt="Image for {{ user.username }}"
+                class="card-image"
+              />
+              <p>@{{ user.username }}</p>
+            </a>
+
+            {% if g.user %}
+            <form
+              method="POST"
+              action="/users/follow/{{ user.id }}"
+              class="follow-form"
+              data-user="{{user.id}}"
+            >
+              <button
+                class="btn btn-sm {{'btn-primary' if g.user.is_following(user) else 'btn-outline-primary'}}"
+              >
+                {{"Unfollow" if g.user.is_following(user) else "Follow"}}
+              </button>
+            </form>
+            {% endif %}
+          </div>
+          <p class="card-bio">{{user.bio if user.bio else "NO BIO"}}</p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}

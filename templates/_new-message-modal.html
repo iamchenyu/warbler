@@ -1,0 +1,43 @@
+<div
+  class="modal fade"
+  id="newMessageModal"
+  tabindex="-1"
+  aria-labelledby="newMessageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newMessageModalLabel">New Message</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <form method="POST" id="new-message-form">
+              {{ g.message_form.csrf_token }}
+              <div>
+                {% if g.message_form.text.errors %} {% for error in
+                g.message_form.text.errors %}
+                <span class="text-danger"> {{ error }} </span>
+                {% endfor %} {% endif %} {{
+                g.message_form.text(placeholder="What's happening?",
+                class="form-control", rows="3") }}
+              </div>
+              <button class="btn btn-outline-success btn-block" type="submit">
+                Add my message!
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

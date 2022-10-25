@@ -1,0 +1,8 @@
+<div class="col-sm-3">
+  <h4 id="sidebar-username">@{{ user.username }}</h4>
+  <p>{{ user.bio if user.bio else "NO BIO" }}</p>
+  <p class="user-location">
+    <span class="fa fa-map-marker"></span>&nbsp;{{ user.location if
+    user.location else "NO LOCATION" }}
+  </p>
+</div>
